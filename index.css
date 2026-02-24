@@ -1,0 +1,12 @@
+/* Global Styles */
+:root {
+    --primary: #2563eb;
+    --bg: #060a0d;
+    --surface: #131b21;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}

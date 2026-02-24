@@ -1,0 +1,8 @@
+{
+  "name": "Learn2Job",
+  "description": "A comprehensive career development platform for discovery, job opportunities, and visionary roadmap generation. Features market demand analysis, job boards, and personalized learning paths powered by Gemini AI.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
