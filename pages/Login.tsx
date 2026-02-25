@@ -24,9 +24,7 @@ const Login: React.FC<LoginProps> = ({ initialMode = 'login', onBack }) => {
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
 
         try {
-            // Use full URL if running separately, but proxy is better. 
-            // Assuming Vite proxy or CORS allows localhost:5000.
-            const response = await fetch(`http://localhost:5000${endpoint}`, {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
