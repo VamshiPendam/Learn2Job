@@ -82,7 +82,7 @@ const Login: React.FC<LoginProps> = ({ initialMode = 'login', onBack }) => {
 
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center p-1 rounded-xl mb-4">
-                        <img src="/Learn2Job.png" alt="Learn2Job" className="w-16 h-16 object-contain" />
+                        <img src="/Learn2Job.png" alt="Learn2Job" className="w-20 h-20 md:w-24 md:h-24 object-contain" />
                     </div>
                     <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
                         {isLogin ? 'Welcome Back' : 'Create Account'}
