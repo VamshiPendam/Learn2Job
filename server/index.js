@@ -1,74 +1,61 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const path = require('path');
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-// Load env only in non-production
+// Load .env only in local dev (Vercel uses its own env vars)
 if (process.env.NODE_ENV !== 'production') {
-    dotenv.config({ path: path.join(__dirname, '../.env') });
+    require('dotenv').config({ path: path.join(__dirname, '../.env') });
 }
 
+const app = express();
+
 // Middleware
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// MongoDB Connection Singleton for Serverless
-let cachedDb = null;
+// MongoDB Singleton — reuse connection across warm serverless invocations
+let isConnected = false;
 
-const connectDB = async () => {
-    if (cachedDb) return cachedDb;
-
+async function connectDB() {
+    if (isConnected) return;
     if (!process.env.MONGODB_URI) {
-        console.error('MONGODB_URI is missing');
-        return null;
+        console.error('[DB] MONGODB_URI not set');
+        return;
     }
-
     try {
-        const db = await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        cachedDb = db;
-        console.log('MongoDB connected');
-        return db;
+        await mongoose.connect(process.env.MONGODB_URI);
+        isConnected = true;
+        console.log('[DB] Connected to MongoDB');
     } catch (err) {
-        console.error('MongoDB connection error:', err);
-        return null;
+        console.error('[DB] Connection failed:', err.message);
     }
-};
+}
 
-// Middleware to ensure DB is connected
 app.use(async (req, res, next) => {
     await connectDB();
     next();
 });
 
-// Routes
+// Health check — visit /api/health to verify the function is working
+app.get('/api/health', (req, res) => {
+    res.json({
+        ok: true,
+        dbState: mongoose.connection.readyState, // 1 = connected
+        mongoUri: process.env.MONGODB_URI ? 'set' : 'MISSING',
+        jwtSecret: process.env.JWT_SECRET ? 'set' : 'MISSING',
+    });
+});
+
+// Auth routes
 const authRoute = require('./routes/auth.js');
 app.use('/api/auth', authRoute);
 
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'ok',
-        message: 'Backend is running',
-        dbConnected: mongoose.connection.readyState === 1,
-        env: process.env.NODE_ENV
-    });
-});
-
-app.get('/', (req, res) => {
-    res.send('AI Career Nexus Backend is running');
-});
-
+// Local dev server
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`[Server] Listening on port ${PORT}`));
 }
 
 module.exports = app;
