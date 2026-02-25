@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User.cjs');
+const User = require('../models/User.js');
 
 // Update Profile
 router.put('/update-profile', async (req, res) => {

@@ -18,16 +18,27 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // MongoDB Connection Singleton for Serverless
-let isConnected = false;
+let cachedDb = null;
 
 const connectDB = async () => {
-    if (isConnected) return;
+    if (cachedDb) return cachedDb;
+
+    if (!process.env.MONGODB_URI) {
+        console.error('MONGODB_URI is missing');
+        return null;
+    }
+
     try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        isConnected = true;
+        const db = await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        cachedDb = db;
         console.log('MongoDB connected');
+        return db;
     } catch (err) {
         console.error('MongoDB connection error:', err);
+        return null;
     }
 };
 
@@ -38,8 +49,17 @@ app.use(async (req, res, next) => {
 });
 
 // Routes
-const authRoute = require('./routes/auth.cjs');
+const authRoute = require('./routes/auth.js');
 app.use('/api/auth', authRoute);
+
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        message: 'Backend is running',
+        dbConnected: mongoose.connection.readyState === 1,
+        env: process.env.NODE_ENV
+    });
+});
 
 app.get('/', (req, res) => {
     res.send('AI Career Nexus Backend is running');
