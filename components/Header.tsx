@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   };
 
   return (
-    <header className="h-16 md:h-20 border-b border-[#1e293b] bg-[#0a0f12]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 md:ml-64">
+    <header className="h-16 md:h-20 border-b border-[#1e293b] bg-[#0a0f12]/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 md:pl-64">
       {/* Left: Hamburger + Search */}
       <div className="flex items-center gap-3 flex-1 min-w-0">
         {/* Hamburger - mobile only */}
