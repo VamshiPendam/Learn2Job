@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { UIProvider, useUI } from './context/UIContext';
 import { SearchProvider } from './context/SearchContext';
@@ -16,6 +16,7 @@ import Profile from './pages/Profile';
 
 const AuthenticatedApp: React.FC = () => {
   const { activeView, setActiveView } = useUI();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const renderView = () => {
     switch (activeView) {
@@ -39,20 +40,24 @@ const AuthenticatedApp: React.FC = () => {
   return (
     <ProtectedRoute>
       <div className="flex min-h-screen bg-background-dark text-[#e2e8f0]">
-        <Sidebar activeView={activeView} onViewChange={setActiveView} />
+        <Sidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
 
-        <div className="flex-1">
-          <Header />
-          <main className="ml-64 animate-in fade-in duration-700">
-            <div className="min-h-[calc(100vh-80px)]">
+        {/* Main content area - offset by sidebar on md+ screens */}
+        <div className="flex-1 min-w-0 md:ml-64">
+          <Header onMenuClick={() => setSidebarOpen(true)} />
+          <main className="animate-in fade-in duration-700">
+            <div className="min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)]">
               {renderView()}
             </div>
           </main>
         </div>
 
-        {/* Background Decorative Elements */}
-        <div className="fixed top-0 right-0 -z-10 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none translate-x-1/4 -translate-y-1/4"></div>
-        <div className="fixed bottom-0 left-64 -z-10 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/4 translate-y-1/4"></div>
+        {/* Background decorative elements */}
+        <div className="fixed top-0 right-0 -z-10 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none translate-x-1/4 -translate-y-1/4" />
+        <div className="fixed bottom-0 left-0 md:left-64 -z-10 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-purple-500/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/4 translate-y-1/4" />
       </div>
     </ProtectedRoute>
   );

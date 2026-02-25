@@ -58,8 +58,8 @@ const Profile: React.FC = () => {
    };
 
    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-6">
-         <div className="w-full max-w-2xl bg-gradient-to-br from-[#131b21] to-[#0a0f12] p-12 rounded-3xl border border-[#1e293b] flex flex-col items-center justify-center text-center space-y-8 relative overflow-hidden shadow-2xl">
+      <div className="flex items-center justify-center min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] p-4 md:p-6">
+         <div className="w-full max-w-2xl bg-gradient-to-br from-[#131b21] to-[#0a0f12] p-6 md:p-12 rounded-3xl border border-[#1e293b] flex flex-col items-center justify-center text-center space-y-6 md:space-y-8 relative overflow-hidden shadow-2xl">
             {/* Background effects */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -131,7 +131,7 @@ const Profile: React.FC = () => {
                   </div>
                ) : (
                   <div className="text-center">
-                     <h3 className="text-4xl font-black text-white">{user?.username}</h3>
+                     <h3 className="text-2xl md:text-4xl font-black text-white">{user?.username}</h3>
                      <p className="text-primary font-bold tracking-[0.2em] uppercase text-sm mt-2">{user?.title || 'AI Enthusiast'}</p>
                   </div>
                )}
