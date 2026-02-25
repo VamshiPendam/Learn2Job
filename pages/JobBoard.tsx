@@ -88,10 +88,10 @@ const JobBoard: React.FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-80px)]">
+    <div className="flex flex-col md:flex-row h-auto md:h-[calc(100vh-64px)] md:md:h-[calc(100vh-80px)]">
       {/* Job List */}
-      <aside className="w-[450px] bg-[#0a0f12] border-r border-[#1e293b] flex flex-col">
-        <div className="p-6 border-b border-[#1e293b] space-y-4">
+      <aside className="w-full md:w-[380px] lg:w-[450px] bg-[#0a0f12] border-b md:border-b-0 md:border-r border-[#1e293b] flex flex-col max-h-[50vh] md:max-h-none">
+        <div className="p-4 md:p-6 border-b border-[#1e293b] space-y-3 md:space-y-4">
           <div className="flex items-center space-x-2">
             {['All', 'Jobs', 'Internships', 'Saved'].map(f => (
               <button
@@ -151,15 +151,15 @@ const JobBoard: React.FC = () => {
       </aside>
 
       {/* Job Details */}
-      <main className="flex-1 overflow-y-auto bg-[#060a0d] p-12">
+      <main className="flex-1 overflow-y-auto bg-[#060a0d] p-4 md:p-8 lg:p-12">
         {selectedJob ? (
           <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-500">
-            <div className="flex items-start justify-between">
-              <div className="flex items-center space-x-6">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex items-center space-x-4 md:space-x-6">
                 <img src={selectedJob.logo || 'https://via.placeholder.com/80'} alt={selectedJob.company} className="w-20 h-20 rounded-3xl border border-[#1e293b] object-contain bg-white/5 p-2" />
                 <div>
-                  <h2 className="text-4xl font-black text-white mb-2">{selectedJob.title}</h2>
-                  <p className="text-xl text-primary font-bold">{selectedJob.company}</p>
+                  <h2 className="text-2xl md:text-4xl font-black text-white mb-1 md:mb-2">{selectedJob.title}</h2>
+                  <p className="text-base md:text-xl text-primary font-bold">{selectedJob.company}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
@@ -186,7 +186,7 @@ const JobBoard: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               {[
                 { label: 'Location', value: selectedJob.location, icon: 'location_on' },
                 { label: 'Type', value: selectedJob.type, icon: 'schedule' },

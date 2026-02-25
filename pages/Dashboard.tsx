@@ -66,11 +66,11 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="p-8 space-y-10">
+    <div className="p-4 md:p-8 space-y-8 md:space-y-10">
       {/* Dynamic Header with Sync Action */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black text-white">Market Dashboard</h2>
+          <h2 className="text-2xl md:text-3xl font-black text-white">Market Dashboard</h2>
           <p className="text-gray-500 text-sm flex items-center space-x-2">
             <span className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-yellow-500 animate-pulse' : 'bg-primary'}`}></span>
             <span>Last synchronized: {marketData.lastSync}</span>
@@ -90,7 +90,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0d151c] to-[#131b21] p-12 border border-[#1e293b] shadow-2xl">
+      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0d151c] to-[#131b21] p-6 md:p-12 border border-[#1e293b] shadow-2xl">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#00f2ea] via-transparent to-transparent"></div>
         </div>
@@ -99,7 +99,7 @@ const Dashboard: React.FC = () => {
           <div className="inline-block px-3 py-1 rounded-full bg-[#00f2ea]/10 border border-[#00f2ea]/20 text-[#00f2ea] text-xs font-bold mb-6 tracking-widest uppercase">
             {isSyncing ? 'Synthesizing Market Pulse...' : 'Market Pulse Active'}
           </div>
-          <h2 className="text-6xl font-extrabold text-white mb-6 leading-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
             The Future of <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">AI Careers</span>
           </h2>
           <p className="text-gray-400 text-lg mb-8 leading-relaxed">
@@ -109,7 +109,7 @@ const Dashboard: React.FC = () => {
       </section>
 
       {/* Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         {/* Market Trend Summary */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
@@ -119,7 +119,7 @@ const Dashboard: React.FC = () => {
             </h3>
           </div>
 
-          <div className="bg-[#131b21] p-8 rounded-3xl border border-[#1e293b] relative overflow-hidden">
+          <div className="bg-[#131b21] p-4 md:p-8 rounded-3xl border border-[#1e293b] relative overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
               {marketData.tools.slice(0, 4).map((tool: any, idx: number) => (
                 <div key={tool.id} className="flex items-start space-x-4 group">
@@ -262,7 +262,7 @@ const Dashboard: React.FC = () => {
           </h3>
         </div>
 
-        <div className="bg-[#131b21] p-8 rounded-3xl border border-[#1e293b] grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-[#131b21] p-4 md:p-8 rounded-3xl border border-[#1e293b] grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <div className="space-y-4">
             <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Skill Resonance</p>
             <div className="space-y-3">
