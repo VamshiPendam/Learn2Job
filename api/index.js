@@ -1,6 +1,6 @@
 import app from "../server/index.js";
 
-app.get("/", (req, res) => {
+app.get("/api/status", (req, res) => {
   res.send("Backend working 🚀");
 });
 
