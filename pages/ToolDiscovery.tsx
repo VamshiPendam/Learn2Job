@@ -15,7 +15,6 @@ const ToolDiscovery: React.FC = () => {
    const [sortBy, setSortBy] = useState<'Trending' | 'Top Rated' | 'Newest'>('Trending');
    const [isSortOpen, setIsSortOpen] = useState(false);
    const [currentPage, setCurrentPage] = useState(1);
-   const [syncError, setSyncError] = useState<string | null>(null);
    const { searchQuery } = useSearch();
    const pageSize = 8;
 
@@ -28,18 +27,15 @@ const ToolDiscovery: React.FC = () => {
 
    const handleSync = async () => {
       setIsSyncing(true);
-      setSyncError(null);
       try {
          const newTools = await fetchLatestAITools();
          if (newTools && newTools.length > 0) {
             setTools(newTools);
             setLastSync(new Date().toLocaleTimeString());
             setCurrentPage(1);
-         } else if (newTools === null) {
-            setSyncError("Live market data temporarily unavailable (Quota reached). Showing published database.");
          }
       } catch (err) {
-         setSyncError("Failed to sync live data. Please try again later.");
+         // Silently fail if sync fails, keeping the mock/existing data
       }
       setIsSyncing(false);
    };
@@ -175,12 +171,7 @@ const ToolDiscovery: React.FC = () => {
                         <span>Synced: {lastSync}</span>
                      </span>
                   )}
-                  {syncError && (
-                     <span className="text-[10px] text-amber-500 flex items-center space-x-1 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
-                        <i className="fas fa-exclamation-triangle text-[8px]"></i>
-                        <span>{syncError}</span>
-                     </span>
-                  )}
+
                </div>
 
                <div className="flex items-center space-x-3">
@@ -223,7 +214,7 @@ const ToolDiscovery: React.FC = () => {
                               <i className={`fas ${tool.icon || 'fa-brain'}`}></i>
                            </div>
                            <div className="flex items-center space-x-1.5 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10">
-                              <i className="fas fa-star text-yellow-500 text-[10px]"></i>
+                              <i className="fas fa-star text-[#00f2ea] text-[10px]"></i>
                               <span className="text-xs font-black text-white">{tool.rating}</span>
                            </div>
                         </div>
@@ -260,7 +251,7 @@ const ToolDiscovery: React.FC = () => {
                            <div className="flex items-center space-x-3 mb-1">
                               <h4 className="text-base md:text-lg font-bold text-white group-hover:text-[#00f2ea] transition-colors truncate">{tool.name}</h4>
                               <div className="flex items-center space-x-1.5 bg-black/40 px-2 py-0.5 rounded border border-white/10 flex-shrink-0">
-                                 <i className="fas fa-star text-yellow-500 text-[8px]"></i>
+                                 <i className="fas fa-star text-[#00f2ea] text-[8px]"></i>
                                  <span className="text-[10px] font-black text-white">{tool.rating}</span>
                               </div>
                            </div>

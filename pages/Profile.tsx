@@ -100,7 +100,7 @@ const Profile: React.FC = () => {
                   </>
                )}
 
-               <div className={`absolute -bottom-3 -right-3 w-8 h-8 rounded-full border-4 border-[#131b21] ${isEditing ? 'bg-yellow-500' : 'bg-green-500'}`}></div>
+               <div className={`absolute -bottom-3 -right-3 w-8 h-8 rounded-full border-4 border-[#131b21] ${isEditing ? 'bg-[#00f2ea]' : 'bg-green-500'}`}></div>
             </div>
 
             <div className="w-full max-w-md space-y-6">

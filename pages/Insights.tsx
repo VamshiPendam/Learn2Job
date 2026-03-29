@@ -151,12 +151,7 @@ const Insights: React.FC = () => {
                         </button>
                     ))}
                 </div>
-                {bestOverallTool && (
-                    <div className="flex items-center gap-2 px-4 py-1.5 bg-yellow-500/10 border border-yellow-500/30 rounded-xl text-yellow-500 text-sm font-bold shadow-lg shadow-yellow-500/5 animate-pulse">
-                        <span className="material-symbols-outlined text-sm">workspace_premium</span>
-                        Market Choice: {bestOverallTool}
-                    </div>
-                )}
+
                 {searchQuery && (
                     <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-xl text-primary text-sm font-bold">
                         <span className="material-symbols-outlined text-sm">search</span>
@@ -320,7 +315,7 @@ const Insights: React.FC = () => {
                                         <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-[#131b21]/95 backdrop-blur-md border border-primary/30 text-white px-3 py-2 rounded-xl text-xs font-bold opacity-0 group-hover:opacity-100 group-hover:-top-24 transition-all pointer-events-none z-20 shadow-xl whitespace-nowrap flex flex-col items-center min-w-[100px]">
                                             <span className="text-primary text-[9px] uppercase tracking-widest leading-none mb-1">{data.label} ({data.demandTrend})</span>
                                             <div className="flex items-center gap-1 mb-1">
-                                                <span className="material-symbols-outlined text-[10px] text-yellow-500 fill-1">star</span>
+                                                <span className="material-symbols-outlined text-[10px] text-primary fill-1">star</span>
                                                 <span className="text-white">Rate: {data.timeRate}/5</span>
                                             </div>
                                             <span className="text-white text-[12px]">{data.growth}% Growth</span>

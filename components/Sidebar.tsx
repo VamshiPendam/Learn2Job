@@ -75,15 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </nav>
 
         <div className="p-4 space-y-4">
-          <div className="bg-[#131b21] rounded-2xl p-4 border border-[#1e293b]">
-            <p className="text-xs text-primary font-semibold mb-1">WEEKLY PULSE</p>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              AI job growth is up <span className="text-white font-bold">14.2%</span> this month.
-            </p>
-            <button className="w-full mt-4 bg-primary text-white py-2 rounded-xl font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-primary/20">
-              Go Premium
-            </button>
-          </div>
+
 
           <button
             onClick={() => handleNavClick(View.PROFILE)}
