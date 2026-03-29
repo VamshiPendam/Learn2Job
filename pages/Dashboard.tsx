@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
         <div>
           <h2 className="text-2xl md:text-3xl font-black text-white">Market Dashboard</h2>
           <p className="text-gray-500 text-sm flex items-center space-x-2">
-            <span className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-yellow-500 animate-pulse' : 'bg-primary'}`}></span>
+            <span className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-[#00f2ea] animate-pulse' : 'bg-primary'}`}></span>
             <span>Last synchronized: {marketData.lastSync}</span>
           </p>
         </div>

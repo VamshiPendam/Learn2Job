@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 import Login from './Login';
+import ResetPassword from './ResetPassword';
 import Logo from '../components/Logo';
-import { TrendingUp, Briefcase, Lightbulb, Map, User } from 'lucide-react';
+import { TrendingUp, Briefcase, Lightbulb, Map, User, FileText, BookOpen, Presentation } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
-    const [showAuth, setShowAuth] = useState(false);
-    const [authMode, setAuthMode] = useState<'login' | 'signup'>('signup');
+    const searchParams = new URLSearchParams(window.location.search);
+    const resetToken = searchParams.get('resetToken');
+    const oauthToken = searchParams.get('token');
+
+    const [showAuth, setShowAuth] = useState(!!oauthToken);
+    const [authMode, setAuthMode] = useState<'login' | 'signup'>(oauthToken ? 'login' : 'signup');
+
+    if (resetToken) {
+        return <ResetPassword token={resetToken} onSuccess={() => {
+            window.history.replaceState({}, document.title, window.location.pathname);
+            setAuthMode('login');
+            setShowAuth(true);
+        }} />;
+    }
 
     if (showAuth) {
         return <Login initialMode={authMode} onBack={() => setShowAuth(false)} />;
@@ -58,10 +71,10 @@ const LandingPage: React.FC = () => {
                 </div>
 
                 {/* Text Content Section */}
-                <div className="text-center space-y-8 max-w-4xl mx-auto">
+                <div className="text-center space-y-8 max-w-[95vw] mx-auto px-4 overflow-hidden">
                     {/* Main Heading */}
-                    <h1 className="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white via-[#00f2ea] to-purple-500 leading-tight drop-shadow-2xl">
-                        
+                    <h1 className="whitespace-nowrap text-lg sm:text-xl md:text-3xl lg:text-[42px] font-black bg-clip-text text-transparent bg-gradient-to-r from-white via-[#00f2ea] to-purple-500 leading-tight drop-shadow-2xl uppercase tracking-[0.05em] mb-4 text-center">
+                        LEARNING TOOLS AND CONVERTING SKILLS INTO CAREERS
                     </h1>
 
                     {/* Tagline */}
@@ -72,31 +85,31 @@ const LandingPage: React.FC = () => {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-                                <button
-                                    onClick={() => {
-                                        setAuthMode('signup');
-                                        setShowAuth(true);
-                                    }}
-                                    className="group px-8 py-4 bg-gradient-to-r from-[#00f2ea] to-[#00aaff] text-[#060a0d] font-bold rounded-2xl hover:shadow-[0_0_30px_rgba(0,242,234,0.4)] transition-all duration-300 flex items-center space-x-2 text-lg backdrop-blur-sm"
-                                >
-                                    <span>Get Started</span>
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                    </svg>
-                                </button>
+                        <button
+                            onClick={() => {
+                                setAuthMode('signup');
+                                setShowAuth(true);
+                            }}
+                            className="group px-8 py-4 bg-gradient-to-r from-[#00f2ea] to-[#00aaff] text-[#060a0d] font-bold rounded-2xl hover:shadow-[0_0_30px_rgba(0,242,234,0.4)] transition-all duration-300 flex items-center space-x-2 text-lg backdrop-blur-sm"
+                        >
+                            <span>Get Started</span>
+                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </button>
 
-                                <button
-                                    onClick={() => {
-                                        setAuthMode('login');
-                                        setShowAuth(true);
-                                    }}
-                                    className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-2xl transition-all duration-300 text-lg backdrop-blur-sm"
-                                >
-                                    Login
-                                </button>
-                            </div>
-                        </div>
-                    </section>
+                        <button
+                            onClick={() => {
+                                setAuthMode('login');
+                                setShowAuth(true);
+                            }}
+                            className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-2xl transition-all duration-300 text-lg backdrop-blur-sm"
+                        >
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </section>
 
             {/* Features Section */}
             <section className="relative px-6 py-20 bg-gradient-to-b from-transparent to-[#0a0f12]">
@@ -128,6 +141,73 @@ const LandingPage: React.FC = () => {
                                 {/* Hover Effect */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity pointer-events-none`}></div>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Deep In to the Project Section */}
+            <section className="relative px-6 py-24 bg-[#060a0d]">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+                        <div className="max-w-2xl">
+                            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">
+                                Deep Into the <span className="text-[#00f2ea]">Project</span>
+                            </h2>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                Explore the foundational architecture and detailed insights behind the Learn2Job platform.
+                            </p>
+                        </div>
+                        <div className="h-px flex-1 bg-gradient-to-r from-[#00f2ea]/20 to-transparent mb-4 hidden md:block"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            {
+                                icon: FileText,
+                                title: 'Abstract',
+                                description: 'A high-level overview of the project objectives and methodology.',
+                                url: 'https://drive.google.com/file/d/1f_oHVwMXMTrHbqftAzOzTg1sVgb5r-k6/view?usp=drive_link',
+                                color: 'from-blue-500/20 to-cyan-500/5'
+                            },
+                            {
+                                icon: BookOpen,
+                                title: 'Documentation',
+                                description: 'Comprehensive technical guide covering the full-stack architecture.',
+                                url: 'https://drive.google.com/file/d/1GmzG3y8UPoIgAwdqG3MZng5G1GxJH8a0/view?usp=drive_link',
+                                color: 'from-purple-500/20 to-pink-500/5'
+                            },
+                            {
+                                icon: Presentation,
+                                title: 'PPT Slides',
+                                description: 'Visual presentation outlining project milestones and results.',
+                                url: 'https://drive.google.com/file/d/1cE0emq4CamcBgVpHu9RmIRLHieU6HC1V/view?usp=drive_link',
+                                color: 'from-[#00f2ea]/20 to-transparent'
+                            }
+                        ].map((item, idx) => (
+                            <a
+                                key={idx}
+                                href={item.url}
+                                className="group relative block p-8 rounded-3xl border border-white/5 bg-[#0a0f16] hover:border-[#00f2ea]/30 transition-all duration-500 overflow-hidden"
+                            >
+                                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+
+                                <div className="relative z-10">
+                                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#00f2ea] group-hover:text-black transition-all duration-300">
+                                        <item.icon className="w-6 h-6 transition-colors" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#00f2ea] transition-colors">{item.title}</h3>
+                                    <p className="text-gray-400 group-hover:text-gray-200 transition-colors mb-8 leading-relaxed">
+                                        {item.description}
+                                    </p>
+                                    <div className="flex items-center text-[#00f2ea] font-bold text-sm tracking-widest uppercase group-hover:translate-x-2 transition-transform">
+                                        <span>View Artifact</span>
+                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
                         ))}
                     </div>
                 </div>
